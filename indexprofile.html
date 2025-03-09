@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Profile Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        .hidden-input {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <!-- Cover Photo Section -->
+        <div class="relative bg-gradient-to-b from-blue-500 to-blue-300 h-40">
+            <button class="absolute top-2 right-2 text-white">
+                <i class="fas fa-cog"></i>
+            </button>
+            <button class="absolute top-2 right-10 text-white">
+                <i class="fas fa-share-alt"></i>
+            </button>
+            <label for="cover-photo-input" class="absolute bottom-2 left-2 text-white cursor-pointer">
+                <i class="fas fa-camera"></i> Add cover photo
+            </label>
+            <input id="cover-photo-input" type="file" class="hidden-input" accept="image/*"/>
+        </div>
+        <!-- Profile Section -->
+        <div class="p-4">
+            <div class="relative flex items-center">
+                <img id="profile-picture" alt="Profile picture of the user" class="w-20 h-20 rounded-full border-4 border-white -mt-12" src="https://placehold.co/80x80" />
+                <label for="profile-picture-input" class="absolute bottom-0 right-0 bg-white rounded-full p-1 cursor-pointer">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input id="profile-picture-input" type="file" class="hidden-input" accept="image/*"/>
+            </div>
+            <div class="mt-2 text-center">
+                <h1 class="text-xl font-bold">Virak buth</h1>
+                <p class="text-gray-600">@vutheavirakbuth</p>
+                <button class="mt-1 text-sm text-orange-500 border border-orange-500 rounded-full px-2 py-1">Upgrade Account</button>
+                <div class="mt-2 text-gray-600">
+                    <span>0 Followers</span> · <span>0 Following</span>
+                </div>
+            </div>
+            <!-- Action Buttons -->
+            <div class="grid grid-cols-2 gap-2 mt-4">
+                <button class="flex items-center justify-center bg-gray-200 rounded-lg p-2">
+                    <i class="fas fa-heart text-black"></i>
+                    <span class="ml-2">Likes</span>
+                </button>
+                <button class="flex items-center justify-center bg-gray-200 rounded-lg p-2">
+                    <i class="fas fa-bookmark text-black"></i>
+                    <span class="ml-2">Saves</span>
+                </button>
+                <button class="flex items-center justify-center bg-gray-200 rounded-lg p-2">
+                    <i class="fas fa-briefcase text-black"></i>
+                    <span class="ml-2">Jobs</span>
+                </button>
+                <button class="flex items-center justify-center bg-gray-200 rounded-lg p-2">
+                    <i class="fas fa-file-alt text-black"></i>
+                    <span class="ml-2">Resume (CV)</span>
+                </button>
+                <button class="flex items-center justify-center bg-gray-200 rounded-lg p-2 col-span-2">
+                    <i class="fas fa-dollar-sign text-black"></i>
+                    <span class="ml-2">Subscription</span>
+                </button>
+            </div>
+        </div>
+        <!-- Advertisement Section -->
+        <div class="p-4">
+            <img alt="Advertisement banner with warning sign and text in a foreign language" class="w-full rounded-lg" src="https://placehold.co/300x100" />
+        </div>
+        <!-- Footer Navigation -->
+        <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
+            <div class="flex justify-around items-center py-2">
+              <a href="indexhome.html" class="flex flex-col items-center">
+                <i class="fas fa-home text-gray-600 text-xl"></i>
+                <span class="text-xs">Home</span>
+              </a>
+              <a href="" class="flex flex-col items-center">
+                <i class="fas fa-bell text-gray-600 text-xl"></i>
+                <span class="text-xs">Notification</span>
+              </a>
+              <a href="#" class="flex flex-col items-center">
+                <div class="relative">
+                  <i class="fas fa-camera text-orange-500 text-4xl"></i>
+                  <span class="absolute top-0 right-0 bg-orange-500 text-white text-xs rounded-full px-1">Sell</span>
+                </div>
+              </a>
+              <a href="#" class="flex flex-col items-center">
+                <div class="relative">
+                  <i class="fas fa-comments text-gray-600 text-xl"></i>
+                  <span class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1"></span>
+                </div>
+                <span class="text-xs">Chat</span>
+              </a>
+              <a href="indexprofile.html" class="flex flex-col items-center">
+                <i class="fas fa-user text-gray-600 text-xl"></i>
+                <span class="text-xs">Account</span>
+              </a>
+            </div>
+          </div>
+
+    <script>
+        // Load images from localStorage if available
+        window.onload = function() {
+            const savedProfilePicture = localStorage.getItem('profilePicture');
+            const savedCoverPhoto = localStorage.getItem('coverPhoto');
+            if (savedProfilePicture) {
+                document.getElementById('profile-picture').src = savedProfilePicture;
+            }
+            if (savedCoverPhoto) {
+                document.querySelector('.bg-gradient-to-b').style.backgroundImage = `url(${savedCoverPhoto})`;
+            }
+        }
+
+        document.getElementById('profile-picture-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageUrl = e.target.result;
+                    document.getElementById('profile-picture').src = imageUrl;
+                    localStorage.setItem('profilePicture', imageUrl);  // Save to localStorage
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('cover-photo-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imageUrl = e.target.result;
+                    document.querySelector('.bg-gradient-to-b').style.backgroundImage = `url(${imageUrl})`;
+                    localStorage.setItem('coverPhoto', imageUrl);  // Save to localStorage
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+    </script>
+</body>
+</html>
